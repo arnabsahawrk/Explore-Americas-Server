@@ -44,6 +44,13 @@ const run = async () => {
       res.send(foundResult);
     });
 
+    app.get("/tourist-spots/countries/:country", async (req, res) => {
+      const country = req.params.country;
+      const query = { countryName: country };
+      const foundResult = await exploreAmericasDB.find(query).toArray();
+      res.send(foundResult);
+    });
+
     app.get("/countries", async (req, res) => {
       const foundResult = await countriesDB.find().toArray();
       res.send(foundResult);
