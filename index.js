@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 //config
 require("dotenv").config();
@@ -33,6 +33,13 @@ const run = async () => {
     //GET
     app.get("/tourist-spots", async (req, res) => {
       const foundResult = await exploreAmericasDB.find().toArray();
+      res.send(foundResult);
+    });
+
+    app.get("/tourist-spots/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const foundResult = await exploreAmericasDB.findOne(query);
       res.send(foundResult);
     });
 
