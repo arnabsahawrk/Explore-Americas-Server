@@ -29,6 +29,7 @@ const run = async () => {
     const exploreAmericasDB = client
       .db("explore-americas")
       .collection("tourist-spots");
+    const countriesDB = client.db("explore-americas").collection("countries");
 
     //GET
     app.get("/tourist-spots", async (req, res) => {
@@ -40,6 +41,11 @@ const run = async () => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const foundResult = await exploreAmericasDB.findOne(query);
+      res.send(foundResult);
+    });
+
+    app.get("/countries", async (req, res) => {
+      const foundResult = await countriesDB.find().toArray();
       res.send(foundResult);
     });
 
