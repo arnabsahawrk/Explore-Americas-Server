@@ -30,13 +30,19 @@ const run = async () => {
       .db("explore-americas")
       .collection("tourist-spots");
 
+    //GET
+    app.get("/tourist-spots", async (req, res) => {
+      const foundResult = await exploreAmericasDB.find().toArray();
+      res.send(foundResult);
+    });
+
     //POST
     app.post("/tourist-spots", async (req, res) => {
       const insertedResult = await exploreAmericasDB.insertOne(req.body);
       res.send(insertedResult);
     });
   } catch (err) {
-    console.log("Fell Database.", err);
+    console.error("Fell Database.", err);
   }
 };
 run().catch(console.dir);
