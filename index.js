@@ -43,6 +43,23 @@ const run = async () => {
       res.send(foundResult);
     });
 
+    //SORT
+    app.get("/tourist-spot-ascending", async (req, res) => {
+      const foundResult = await exploreAmericasDB
+        .find()
+        .sort({ averageCost: 1 })
+        .toArray();
+      res.send(foundResult);
+    });
+
+    app.get("/tourist-spot-descending", async (req, res) => {
+      const foundResult = await exploreAmericasDB
+        .find()
+        .sort({ averageCost: -1 })
+        .toArray();
+      res.send(foundResult);
+    });
+
     //POST
     app.post("/tourist-spots", async (req, res) => {
       const insertedResult = await exploreAmericasDB.insertOne(req.body);
