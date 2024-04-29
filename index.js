@@ -51,6 +51,13 @@ const run = async () => {
       res.send(foundResult);
     });
 
+    app.get("/userSpots/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { userEmail: email };
+      const foundResult = await exploreAmericasDB.find(query).toArray();
+      res.send(foundResult);
+    });
+
     app.get("/countries", async (req, res) => {
       const foundResult = await countriesDB.find().toArray();
       res.send(foundResult);
