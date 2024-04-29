@@ -85,18 +85,18 @@ const run = async () => {
       const insertedResult = await exploreAmericasDB.insertOne(req.body);
       res.send(insertedResult);
     });
+
+    //DELETE
+    app.delete("/tourist-spots/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const deletedResult = await exploreAmericasDB.deleteOne(query);
+
+      res.send(deletedResult);
+    });
   } catch (err) {
     console.error("Fell Database.", err);
   }
-
-  //DELETE
-  app.delete("/tourist-spots/:id", async (req, res) => {
-    const id = req.params.id;
-    const query = { _id: new ObjectId(id) };
-    const deletedResult = await exploreAmericasDB.deleteOne(query);
-
-    res.send(deletedResult);
-  });
 };
 run().catch(console.dir);
 
