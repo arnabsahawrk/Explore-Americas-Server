@@ -86,6 +86,33 @@ const run = async () => {
       res.send(insertedResult);
     });
 
+    // PUT
+    app.put("/tourist-spots/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          imageUrl: req.body.imageUrl,
+          spotName: req.body.spotName,
+          countryName: req.body.countryName,
+          spotLocation: req.body.spotLocation,
+          spotDescription: req.body.spotDescription,
+          averageCost: req.body.averageCost,
+          seasonality: req.body.seasonality,
+          travelTime: req.body.travelTime,
+          totalVisitorsPerYear: req.body.totalVisitorsPerYear,
+        },
+      };
+      const updatedResult = await exploreAmericasDB.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+
+      res.send(updatedResult);
+    });
+
     //DELETE
     app.delete("/tourist-spots/:id", async (req, res) => {
       const id = req.params.id;
